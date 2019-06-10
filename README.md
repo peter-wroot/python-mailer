@@ -22,7 +22,9 @@ A simple Python script for sending emails based on HTML files.
 
 # template-processor
 
-A simple template-processor.py script is also included. This script will replace an arbitrary number of strings within a text-based template file with substitute strings provided by the user. 
+A simple template-processor.py script is also included. This script will replace an arbitrary number of strings within a text-based template file with substitute strings provided by the user. The items are substituted based on their index in each array (index 0 in the "seek" array will be replaced in index 0 in the "replace" array, and so on.)
+
+## Command-line switches
 
 |Switch         |Function                           |
 |-              |-                                  |

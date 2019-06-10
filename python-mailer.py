@@ -12,7 +12,6 @@ argument_parser.add_argument("--subject")
 argument_parser.add_argument("--html")
 arguments = argument_parser.parse_args()
 
-
 # Creates the email message
 email_message = MIMEMultipart('alternative')
 email_message['Subject'] = arguments.subject
