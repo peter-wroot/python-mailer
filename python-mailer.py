@@ -5,18 +5,17 @@ from email.mime.text import MIMEText
 
 # Command-line arguments.
 argument_parser = argparse.ArgumentParser()
-argument_parser.add_argument("-s","--sender") 
-argument_parser.add_argument("-r","--recipient") 
-argument_parser.add_argument("-S","--SMTPRelay") 
-argument_parser.add_argument("-H","--HTML")
+argument_parser.add_argument("--sender") 
+argument_parser.add_argument("--recipient") 
+argument_parser.add_argument("--relay") 
+argument_parser.add_argument("--subject")
+argument_parser.add_argument("--html")
 arguments = argument_parser.parse_args()
 
-# Creates the SMTP Relay object. 
-smtp_relay = smtplib.SMTP(arguments.SMTPRelay)
 
 # Creates the email message
 email_message = MIMEMultipart('alternative')
-email_message['Subject'] = "Test Email"
+email_message['Subject'] = arguments.subject
 email_message['From'] = arguments.sender
 email_message['To'] = arguments.recipient
 
@@ -29,12 +28,14 @@ if(arguments.HTML == None):
     email_message.attach(MIMEText(message_body,'plain'))
 else:
     message_body = ""
-    message_html = open(arguments.HTML)
+    message_html = open(arguments.html)
     for line in message_html:
         message_body += (line)   
     email_message.attach(MIMEText(message_body,'html'))
 
-# Sends the mail. 
+# Creates the SMTP Relay object. 
+smtp_relay = smtplib.SMTP(str(arguments.relay))
+# Sends the mail.
 smtp_relay.sendmail(arguments.sender,arguments.recipient,email_message.as_string())
 
 
